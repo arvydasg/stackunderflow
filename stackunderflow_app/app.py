@@ -1,7 +1,15 @@
 import os
 from flask import Flask
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 basedir = os.path.dirname(os.path.dirname(__file__))
+
+login_manager = LoginManager()
+login_manager.login_view = "auth.route_login"
+login_manager.login_message_category = "info"
+login_manager.login_message = "Please login if you want to see this page"
+bcrypt = Bcrypt()
 
 
 def create_app():
@@ -15,6 +23,8 @@ def create_app():
     app.config["SECRET_KEY"] = flask_secret_key
 
     from stackunderflow_app.models import db
+
+    login_manager.init_app(app)
 
     # we are telling SQLAlchemy that this app is going to use this
     # database instance for its database operations
@@ -35,6 +45,10 @@ def create_app():
     @app.route("/")
     def index():
         return "Hello, World, this is index page!"
+
+    @app.route("/bindex")
+    def bindex():
+        return "BINDEX!"
 
     return app
 
