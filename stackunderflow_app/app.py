@@ -37,7 +37,7 @@ def create_app():
         # creates all the tables defined by the application models
         db.create_all()
 
-    from . import auth
+    from stackunderflow_app.auth import auth
 
     app.register_blueprint(auth.bp)
 
