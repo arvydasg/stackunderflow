@@ -53,3 +53,18 @@ def route_edit_question(question_id):  # fetching from the url
         flash("You have successfully edited the question!")
         return redirect(url_for("questions.route_all_questions"))
     return render_template("questions/edit_question.html", form=form, question=question)
+
+
+# This route is accessible only through a POST request. Preventing accidental deletion
+@bp.route("/delete_question/<int:question_id>", methods=["POST"])
+@login_required
+def route_delete_question(question_id):  # fetching question_id parameter from the url
+    """Route for deleting a question."""
+    question = Question.query.get_or_404(question_id)
+    if current_user.id != question.author_id:
+        flash("You can only delete your own questions!")
+        return redirect(url_for("questions.route_all_questions"))
+    db.session.delete(question)
+    db.session.commit()
+    flash("You have successfully deleted the question!")
+    return redirect(url_for("questions.route_all_questions"))

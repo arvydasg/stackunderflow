@@ -25,6 +25,10 @@
                             <p class="card-text">{{ question.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
                             {% if current_user.is_authenticated and current_user.id == question.author_id %}
                                 <a href="{{ url_for('questions.route_edit_question', question_id=question.id) }}" class="btn btn-primary">Edit</a>
+                                <!-- preventing accidental deletion by visiting a URL in the browser. The route is accessible only through a POST request -->
+                                <form action="{{ url_for('questions.route_delete_question', question_id=question.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this question?')">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             {% endif %}
                         </div>
                     </div>
