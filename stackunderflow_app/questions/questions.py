@@ -35,3 +35,21 @@ def route_add_new_question():
         flash("You have successfully asked a question!")
         return redirect(url_for("questions.route_all_questions"))
     return render_template("questions/new_question.html", form=form)
+
+
+@bp.route("/edit_question/<int:question_id>", methods=["GET", "POST"])
+@login_required
+def route_edit_question(question_id):  # fetching from the url
+    """Route for editing a question."""
+    question = Question.query.get_or_404(question_id)  # fetched from the url
+    if current_user.id != question.author_id:
+        flash("You can only edit your own questions!")
+        return redirect(url_for("questions.route_all_questions"))
+    form = AddQuestionForm(obj=question)  # fill fields with data
+    if form.validate_on_submit():
+        question.title = form.title.data
+        question.content = form.content.data
+        db.session.commit()
+        flash("You have successfully edited the question!")
+        return redirect(url_for("questions.route_all_questions"))
+    return render_template("questions/edit_question.html", form=form, question=question)

@@ -21,6 +21,10 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ question.title }}</h5>
                             <p class="card-text">{{ question.content }}</p>
+                            <p class="card-text">{{ question.author_id }}</p>
+                            {% if current_user.is_authenticated and current_user.id == question.author_id %}
+                                <a href="{{ url_for('questions.route_edit_question', question_id=question.id) }}" class="btn btn-primary">Edit</a>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
