@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
@@ -41,14 +41,9 @@ def create_app():
 
     app.register_blueprint(auth.bp)
 
-    # a simple page that says hello
     @app.route("/")
-    def index():
-        return "Hello, World, this is index page!"
-
-    @app.route("/bindex")
-    def bindex():
-        return "BINDEX!"
+    def route_index():
+        return render_template("index.html")
 
     return app
 

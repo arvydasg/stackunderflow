@@ -47,7 +47,7 @@ def route_login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             # next_page = request.args.get("next")
-            flash("You have successfully logged in. Welcome to your dashboard 🙏")
+            flash("You have successfully logged in.")
             # return (
             #     redirect(next_page)
             #     if next_page
@@ -68,13 +68,6 @@ def route_logout():
         return redirect(url_for("auth.route_login"))
     else:
         return render_template("index.html")
-
-
-@bp.route("/dashboard", methods=["GET", "POST"])
-@login_required
-def route_dashboard():
-    """Route for user dashboard."""
-    return render_template("auth/dashboard.html", current_user=current_user)
 
 
 @bp.route("/my_account", methods=["GET", "POST"])
