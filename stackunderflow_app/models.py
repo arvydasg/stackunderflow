@@ -18,5 +18,8 @@ class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
     content = db.Column(db.String(5000))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    author = db.relationship(
+        "Users", backref="questions"
+    )  # allows to access the name of the author instead of id
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
