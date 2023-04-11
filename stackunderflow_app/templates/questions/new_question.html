@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h1>Add new question</h1>
+                <form method="POST" action="{{ url_for('questions.route_add_new_question') }}" novalidate>
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{render_field(form.title, class="form-control")}}
+                        {{render_field(form.content, class="form-control")}}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ask question</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -13,9 +13,15 @@
     {% endwith %}
 
     <div class="container">
+        <img class="img-fluid" src="{{ url_for('static', filename='beach.jpg') }}" alt="My Image">
+        <br/>
+        <br/>
         <div class="row justify-content-center">
             <div class="col-md-6 text-center">
-                <h2>This is Index page</h2>
+                <h2>Welcome to Stackunderflow</h2>
+                <p>this is a page where you can ask questions of your fellow bla, or answer questions of fellow bla</p>
+                <button><a class="nav-link" href="{{url_for("questions.route_all_questions")}}">All questions</a></button>
+                <button><a class="nav-link" href="{{url_for("questions.route_add_new_question")}}">Ask a new question</a></button>
             </div>
         </div>
     </div>

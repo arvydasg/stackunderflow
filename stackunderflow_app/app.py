@@ -41,6 +41,10 @@ def create_app():
 
     app.register_blueprint(auth.bp)
 
+    from stackunderflow_app.questions import questions
+
+    app.register_blueprint(questions.bp)
+
     @app.route("/")
     def route_index():
         return render_template("index.html")
