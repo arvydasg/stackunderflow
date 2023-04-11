@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_migrate import Migrate
 
 basedir = os.path.dirname(os.path.dirname(__file__))
 
@@ -10,6 +11,7 @@ login_manager.login_view = "auth.route_login"
 login_manager.login_message_category = "info"
 login_manager.login_message = "Please login if you want to see this page"
 bcrypt = Bcrypt()
+migrate = Migrate()
 
 
 def create_app():
@@ -29,6 +31,7 @@ def create_app():
     # we are telling SQLAlchemy that this app is going to use this
     # database instance for its database operations
     db.init_app(app)
+    migrate.init_app(app, db)
 
     # creates an application context for the Flask application, which
     # allows the application to access the necessary resources for
