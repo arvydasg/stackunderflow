@@ -50,14 +50,8 @@ def route_login():
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            # next_page = request.args.get("next")
             flash("You have successfully logged in.")
-            # return (
-            #     redirect(next_page)
-            #     if next_page
-            #     else redirect(url_for("auth.my_account"))
-            # )
-            return redirect(url_for("auth.route_my_account"))
+            return redirect(url_for("route_index"))
         else:
             flash("Prisijungti nepavyko. Patikrinkite el. paštą ir slaptažodį")
     return render_template("auth/login.html", form=form)
