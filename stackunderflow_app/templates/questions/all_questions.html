@@ -19,8 +19,12 @@
                 {% for question in questions %}
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">{{ question.title }}</h5>
-                            <p class="card-text">{{ question.content }}</p>
+                            <h5 class="card-title">
+                                <a href="{{ url_for('questions.route_question_detail', question_id=question.id) }}">
+                                    {{ question.title }}
+                                </a>
+                            </h5>
+                            <p class="card-text">{{ question.content[:50]}}...</p>
                             <p class="card-text">{{ question.author.name }}</p>
                             <p class="card-text">{{ question.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
                             {% if current_user.is_authenticated and current_user.id == question.author_id %}

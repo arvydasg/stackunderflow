@@ -68,3 +68,10 @@ def route_delete_question(question_id):  # fetching question_id parameter from t
     db.session.commit()
     flash("You have successfully deleted the question!")
     return redirect(url_for("questions.route_all_questions"))
+
+
+@bp.route("/<int:question_id>", methods=["GET"])
+def route_question_detail(question_id):
+    """Route for displaying the details of a single question."""
+    question = Question.query.get_or_404(question_id)
+    return render_template("questions/question_detail.html", question=question)
