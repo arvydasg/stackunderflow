@@ -9,7 +9,9 @@
                 <p>{{ question.content }}</p>
                 <p class="card-text">{{ question.author.name }}</p>
                 <p class="card-text">{{ question.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
-                <a href="{{ url_for('questions.route_answer_question', question_id=question.id) }}" class="btn btn-success">Answer</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('questions.route_answer_question', question_id=question.id) }}" class="btn btn-success">Answer</a>
+                {% endif %}
                 {% if current_user.is_authenticated and current_user.id == question.author_id %}
                     <a href="{{ url_for('questions.route_edit_question', question_id=question.id) }}" class="btn btn-primary">Edit</a>
                     <!-- preventing accidental deletion by visiting a URL in the browser. The route is accessible only through a POST request -->
