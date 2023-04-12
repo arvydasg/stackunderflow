@@ -23,3 +23,13 @@ class Question(db.Model):
         "Users", backref="questions"
     )  # allows to access the name of the author instead of id
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class Answer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(5000))
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    author = db.relationship("Users")
+    question_id = db.Column(db.Integer, db.ForeignKey("question.id"))
+    question = db.relationship("Question", backref=db.backref("answers", lazy=True))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)

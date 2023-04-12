@@ -18,3 +18,8 @@ from stackunderflow_app.models import Users
 class AddQuestionForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired(), Length(max=140)])
     content = TextAreaField("Content", validators=[DataRequired(), Length(max=5000)])
+
+
+class AddAnswerForm(FlaskForm):
+    content = TextAreaField("Content", validators=[DataRequired(), Length(max=5000)])
+    submit = SubmitField("Submit")
