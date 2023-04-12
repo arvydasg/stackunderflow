@@ -24,7 +24,7 @@ class Question(db.Model):
     )  # allows to access the name of the author instead of id
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(
-        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+        db.DateTime, default=None, onupdate=datetime.utcnow
     )  # onupdate method allows to specify an SQL expression that will
     # be executed when the row is updated
 
@@ -37,6 +37,4 @@ class Answer(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey("question.id"))
     question = db.relationship("Question", backref=db.backref("answers", lazy=True))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    modified_at = db.Column(
-        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
-    )
+    modified_at = db.Column(db.DateTime, default=None, onupdate=datetime.utcnow)
