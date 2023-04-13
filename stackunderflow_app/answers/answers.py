@@ -56,3 +56,22 @@ def route_edit_answer(question_id, answer_id):  # fetching from the url
         question_id=question_id,
         question=question,
     )
+
+
+# This route is accessible only through a POST request. Preventing accidental deletion
+@bp.route("/<int:question_id>/delete_answer/<int:answer_id>", methods=["POST"])
+@login_required
+def route_delete_answer(
+    question_id, answer_id
+):  # fetching answer_id parameter from the url
+    """Route for deleting a answer."""
+    answer = Answer.query.get_or_404(answer_id)
+    if current_user.id != answer.author_id:
+        flash("You can only delete your own answers!")
+        return redirect(
+            url_for("questions.route_question_detail", question_id=question_id)
+        )
+    db.session.delete(answer)
+    db.session.commit()
+    flash("You have successfully deleted the answer!")
+    return redirect(url_for("questions.route_question_detail", question_id=question_id))
