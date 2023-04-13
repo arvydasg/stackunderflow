@@ -24,14 +24,13 @@
                                     {{ question.title }}
                                 </a>
                             </h5>
-                            {% if question.modified_at %}
+                            <p class="card-text">Question created: {{ question.created_at.strftime('%Y-%m-%d %H:%M') }}, by <b>{{ question.author.name }}</b></p>
+                            {% if question.modified_at is not none %}
                                 <p class="card-text">
-                                    <span class="badge badge-warning">Modified</span>
+                                    <span class="badge badge-warning">Question modified at: {{question.modified_at.strftime('%Y-%m-%d %H:%M')}}</span>
                                 </p>
                             {% endif %}
                             <p class="card-text">{{ question.content[:50]}}...</p>
-                            <p class="card-text">{{ question.author.name }}</p>
-                            <p class="card-text">{{ question.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
                             {% if current_user.is_authenticated and current_user.id == question.author_id %}
                                 <a href="{{ url_for('questions.route_edit_question', question_id=question.id) }}" class="btn btn-primary">Edit</a>
                                 <!-- preventing accidental deletion by visiting a URL in the browser. The route is accessible only through a POST request -->

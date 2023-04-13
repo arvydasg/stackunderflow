@@ -1,8 +1,8 @@
-from flask import render_template, request, redirect, url_for, flash
-from stackunderflow_app.models import db, Users, Question, Answer
-from stackunderflow_app.questions.question_form import AddQuestionForm, AddAnswerForm
-from stackunderflow_app.app import login_manager, bcrypt
-from flask_login import current_user, logout_user, login_user, login_required
+from flask import render_template, redirect, url_for, flash
+from stackunderflow_app.models import db, Users, Question
+from stackunderflow_app.questions.question_form import AddQuestionForm
+from stackunderflow_app.app import login_manager
+from flask_login import current_user, login_required
 
 from flask import Blueprint
 
@@ -75,26 +75,3 @@ def route_question_detail(question_id):
     """Route for displaying the details of a single question."""
     question = Question.query.get_or_404(question_id)
     return render_template("questions/question_detail.html", question=question)
-
-
-@bp.route("/answer_question/<int:question_id>", methods=["GET", "POST"])
-@login_required
-def route_answer_question(question_id):
-    """Route for answering a question."""
-    question = Question.query.get_or_404(question_id)
-    form = AddAnswerForm()
-    if form.validate_on_submit():
-        new_answer = Answer(
-            content=form.content.data,
-            author_id=current_user.id,
-            question_id=question_id,
-        )
-        db.session.add(new_answer)
-        db.session.commit()
-        flash("You have successfully answered the question!")
-        return redirect(
-            url_for("questions.route_question_detail", question_id=question_id)
-        )
-    return render_template(
-        "questions/answer_question.html", form=form, question=question
-    )

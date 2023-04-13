@@ -19,18 +19,29 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 {% endif %}
-
                 <hr>
                 <h3>Answers:</h3>
-                {% for answer in question.answers %}
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <p class="card-text">{{ answer.content }}</p>
-                            <p class="card-text">{{ answer.author.name }}</p>
-                            <p class="card-text">{{ answer.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                {% if question.answers %}
+                    <p class="card-text">Number of answers to this question: {{ question.answers|length }}</p>
+                    {% for answer in question.answers %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p class="card-text">Answer created: {{ answer.created_at.strftime('%Y-%m-%d %H:%M') }}, by <b>{{ answer.author.name }}</b></p>
+                                {% if answer.modified_at is not none %}
+                                    <p class="card-text">
+                                        <span class="badge badge-warning">Answer modified at {{answer.modified_at.strftime('%Y-%m-%d %H:%M')}}</span>
+                                    </p>
+                                {% endif %}
+                                <p class="card-text">{{ answer.content }}</p>
+                                                                {% if current_user.is_authenticated and current_user.id == answer.author_id %}
+                                    <a href="{{ url_for('questions.route_edit_answer', question_id=question.id, answer_id=answer.id) }}" class="btn btn-primary">Edit</a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p class="card-text">No answers yet</p>
+                {% endif %}
 
             </div>
         </div>

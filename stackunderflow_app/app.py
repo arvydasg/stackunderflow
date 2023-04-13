@@ -45,6 +45,7 @@ def create_app():
     app.register_blueprint(auth.bp)
 
     from stackunderflow_app.questions import questions
+    from stackunderflow_app.answers import answers
 
     app.register_blueprint(questions.bp)
 

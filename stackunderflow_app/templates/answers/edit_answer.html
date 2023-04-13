@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h1>EDIT an answer for the question: {{question_id}}</h1>
+                <b><p>{{ question.title }}</p></b>
+                <p>{{ question.content }}</p>
+                <hr/>
+                <br/>
+                <form method="POST" action="{{ url_for('questions.route_edit_answer', question_id=question_id, answer_id=answer.id) }}" novalidate>
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{render_field(form.content, class="form-control")}}
+                    </div>
+                    <button type="submit" class="btn btn-primary">EDIT answer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
