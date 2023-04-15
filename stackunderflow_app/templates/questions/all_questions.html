@@ -16,6 +16,20 @@
         <div class="row justify-content-center">
             <div class="col-md-6 text-center">
                 <h1>All Questions</h1>
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="sort-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort by
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="sort-menu">
+                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='created_at_asc') }}">Date created (oldest first)</a>
+                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='created_at_desc') }}">Date created (newest first)</a>
+                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='num_answers_asc') }}">Fewest answers first</a>
+                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='num_answers_desc') }}">Most answers first</a>
+                    </div>
+                </div>
+
+                <br/>
                 {% for question in questions %}
                     <div class="card mb-3">
                         <div class="card-body">

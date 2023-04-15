@@ -1,5 +1,5 @@
-from flask import render_template, redirect, url_for, flash
-from stackunderflow_app.models import db, Users, Question
+from flask import render_template, redirect, url_for, flash, request
+from stackunderflow_app.models import db, Users, Question, Answer
 from stackunderflow_app.questions.question_form import AddQuestionForm
 from stackunderflow_app.app import login_manager
 from flask_login import current_user, login_required
@@ -17,7 +17,30 @@ def load_user(users_id):
 @bp.route("/all_questions", methods=["GET", "POST"])
 def route_all_questions():
     """Route for register page."""
-    questions = Question.query.all()
+
+    sort = request.args.get("sort")
+
+    if sort == "created_at_asc":
+        questions = Question.query.order_by(Question.created_at.asc()).all()
+    elif sort == "created_at_desc":
+        questions = Question.query.order_by(Question.created_at.desc()).all()
+    elif sort == "num_answers_asc":
+        questions = (
+            Question.query.outerjoin(Answer)
+            .group_by(Question.id)
+            .order_by(db.func.count(Answer.id).asc())
+            .all()
+        )
+    elif sort == "num_answers_desc":
+        questions = (
+            Question.query.outerjoin(Answer)
+            .group_by(Question.id)
+            .order_by(db.func.count(Answer.id).desc())
+            .all()
+        )
+    else:
+        questions = Question.query.all()
+
     return render_template("questions/all_questions.html", questions=questions)
 
 
