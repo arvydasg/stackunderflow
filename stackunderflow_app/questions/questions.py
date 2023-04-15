@@ -18,28 +18,39 @@ def load_user(users_id):
 def route_all_questions():
     """Route for register page."""
 
+    # Get query parameters
     sort = request.args.get("sort")
+    filter = request.args.get("filter")
 
+    # Query for all questions
+    query = Question.query
+
+    # Filter by whether the question has answers or not
+    if filter == "with_answers":
+        query = query.filter(Question.answers.any())
+    elif filter == "without_answers":
+        query = query.filter(~Question.answers.any())
+
+    # Order by the selected sort option
     if sort == "created_at_asc":
-        questions = Question.query.order_by(Question.created_at.asc()).all()
+        query = query.order_by(Question.created_at.asc())
     elif sort == "created_at_desc":
-        questions = Question.query.order_by(Question.created_at.desc()).all()
+        query = query.order_by(Question.created_at.desc())
     elif sort == "num_answers_asc":
-        questions = (
-            Question.query.outerjoin(Answer)
+        query = (
+            query.outerjoin(Answer)
             .group_by(Question.id)
             .order_by(db.func.count(Answer.id).asc())
-            .all()
         )
     elif sort == "num_answers_desc":
-        questions = (
-            Question.query.outerjoin(Answer)
+        query = (
+            query.outerjoin(Answer)
             .group_by(Question.id)
             .order_by(db.func.count(Answer.id).desc())
-            .all()
         )
-    else:
-        questions = Question.query.all()
+
+    # Get the list of questions
+    questions = query.all()
 
     return render_template("questions/all_questions.html", questions=questions)
 

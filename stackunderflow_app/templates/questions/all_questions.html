@@ -17,19 +17,26 @@
             <div class="col-md-6 text-center">
                 <h1>All Questions</h1>
 
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="sort-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="sort-menu">
-                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='created_at_asc') }}">Date created (oldest first)</a>
-                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='created_at_desc') }}">Date created (newest first)</a>
-                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='num_answers_asc') }}">Fewest answers first</a>
-                        <a class="dropdown-item" href="{{ url_for('questions.route_all_questions', sort='num_answers_desc') }}">Most answers first</a>
-                    </div>
-                </div>
+                <form action="{{ url_for('questions.route_all_questions') }}" method="GET">
+                    <label for="sort">Sort by:</label>
+                    <select name="sort" id="sort">
+                        <option value="">--</option>
+                        <option value="created_at_asc">Date created (oldest first)</option>
+                        <option value="created_at_desc">Date created (newest first)</option>
+                        <option value="num_answers_asc">Fewest answers first</option>
+                        <option value="num_answers_desc">Most answers first</option>
+                    </select>
+                    <br/>
+                    <label for="filter">Filter by:</label>
+                    <select name="filter" id="filter">
+                        <option value="">--</option>
+                        <option value="with_answers">Questions with answers</option>
+                        <option value="without_answers">Questions without answers</option>
+                    </select>
 
-                <br/>
+                    <input type="submit" value="Apply">
+                </form>
+
                 {% for question in questions %}
                     <div class="card mb-3">
                         <div class="card-body">
