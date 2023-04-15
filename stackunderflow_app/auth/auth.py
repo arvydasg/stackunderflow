@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from stackunderflow_app.models import db, Users
+from stackunderflow_app.models import db, Users, Question
 from stackunderflow_app.auth.auth_forms import (
     RegisterForm,
     LoginForm,
@@ -89,6 +89,9 @@ def route_my_account():
     elif request.method == "GET":
         form.name.data = current_user.name
         form.email.data = current_user.email
+
+    questions = Question.query.filter_by(author=current_user).all()
+
     new_profile_image = url_for(
         "static", filename="profile_images/" + current_user.profile_image
     )
@@ -97,4 +100,5 @@ def route_my_account():
         title="Account",
         form=form,
         profile_image=new_profile_image,
+        questions=questions,
     )
