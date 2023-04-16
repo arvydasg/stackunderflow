@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import validates
 
 db = SQLAlchemy()
 
@@ -37,9 +38,16 @@ class Answer(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey("question.id"))
     question = db.relationship("Question", backref=db.backref("answers", lazy=True))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    modified_at = db.Column(db.DateTime, default=None, onupdate=datetime.utcnow)
+    modified_at = db.Column(db.DateTime)
+
     likes = db.Column(db.Integer, default=0)
     dislikes = db.Column(db.Integer, default=0)
+
+    @validates("content")
+    def update_modified_at(self, key, content):
+        if self.content != content:
+            self.modified_at = datetime.utcnow()
+        return content
 
 
 class Action(db.Model):
