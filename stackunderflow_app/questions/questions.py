@@ -19,7 +19,7 @@ def route_all_questions():
     """Route for register page."""
 
     # Get query parameters
-    sort = request.args.get("sort")
+    sort = request.args.get("sort", "created_at_desc")
     filter = request.args.get("filter")
 
     # Query for all questions
