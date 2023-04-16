@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from stackunderflow_app.models import db, Users, Question, Answer
+from stackunderflow_app.models import db, Users, Question, Answer, Action
 from stackunderflow_app.questions.question_form import AddAnswerForm
 from stackunderflow_app.app import login_manager
 from flask_login import current_user, login_required
@@ -74,4 +74,68 @@ def route_delete_answer(
     db.session.delete(answer)
     db.session.commit()
     flash("You have successfully deleted the answer!")
+    return redirect(url_for("questions.route_question_detail", question_id=question_id))
+
+
+@bp.route(
+    "/<int:question_id>/<int:answer_id>/like",
+    methods=["POST"],
+)
+@login_required
+def route_like_answer(question_id, answer_id):
+    """Route for liking an answer."""
+    answer = Answer.query.get_or_404(answer_id)
+    if answer.author_id == current_user.id:
+        flash("You cannot like your own answer!")
+        return redirect(
+            url_for("questions.route_question_detail", question_id=question_id)
+        )
+    action = Action.query.filter_by(
+        user_id=current_user.id, answer_id=answer_id
+    ).first()
+    if action and action.action == "like":
+        flash("You have already liked this answer!")
+        return redirect(
+            url_for("questions.route_question_detail", question_id=question_id)
+        )
+    elif action and action.action == "dislike":
+        answer.dislikes -= 1
+        db.session.delete(action)
+    answer.likes += 1
+    db.session.add(Action(user_id=current_user.id, answer_id=answer_id, action="like"))
+    db.session.commit()
+    flash("You have successfully liked the answer!")
+    return redirect(url_for("questions.route_question_detail", question_id=question_id))
+
+
+@bp.route(
+    "/<int:question_id>/<int:answer_id>/dislike",
+    methods=["POST"],
+)
+@login_required
+def route_dislike_answer(question_id, answer_id):
+    """Route for disliking an answer."""
+    answer = Answer.query.get_or_404(answer_id)
+    if answer.author_id == current_user.id:
+        flash("You cannot dislike your own answer!")
+        return redirect(
+            url_for("questions.route_question_detail", question_id=question_id)
+        )
+    action = Action.query.filter_by(
+        user_id=current_user.id, answer_id=answer_id
+    ).first()
+    if action and action.action == "dislike":
+        flash("You have already disliked this answer!")
+        return redirect(
+            url_for("questions.route_question_detail", question_id=question_id)
+        )
+    elif action and action.action == "like":
+        answer.likes -= 1
+        db.session.delete(action)
+    answer.dislikes += 1
+    db.session.add(
+        Action(user_id=current_user.id, answer_id=answer_id, action="dislike")
+    )
+    db.session.commit()
+    flash("You have successfully disliked the answer!")
     return redirect(url_for("questions.route_question_detail", question_id=question_id))

@@ -55,6 +55,19 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 {% endif %}
+                                {% if current_user.is_authenticated %}
+                                    <p class="card-text">
+                                        Likes: {{ answer.likes }}
+                                        <form action="{{ url_for('questions.route_like_answer', question_id=question.id, answer_id=answer.id) }}" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm btn-outline-success">Like</button>
+                                        </form>
+                                        Dislikes: {{ answer.dislikes }}
+                                        <form action="{{ url_for('questions.route_dislike_answer', question_id=question.id, answer_id=answer.id) }}" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Dislike</button>
+                                        </form>
+                                    </p>
+                                {% endif %}
+
                             </div>
                         </div>
                     {% endfor %}

@@ -38,3 +38,12 @@ class Answer(db.Model):
     question = db.relationship("Question", backref=db.backref("answers", lazy=True))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(db.DateTime, default=None, onupdate=datetime.utcnow)
+    likes = db.Column(db.Integer, default=0)
+    dislikes = db.Column(db.Integer, default=0)
+
+
+class Action(db.Model):
+    __tablename__ = "actions"
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
+    answer_id = db.Column(db.Integer, db.ForeignKey("answer.id"), primary_key=True)
+    action = db.Column(db.String(10))
