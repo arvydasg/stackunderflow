@@ -3,26 +3,26 @@
 
 {% block content %}
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-success" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
     <div class="container">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
+            <div class="col-md-4 text-center">
                 <h2>Login</h2>
                 <form method="POST" action="{{ url_for('auth.route_login') }}" novalidate>
                     {{ form.csrf_token }}
                     <div class="form-group">
                         {{render_field(form.name, class="form-control")}}
                         {{render_field(form.password, class="form-control")}}
-                        {{render_field(form.remember, class="form-control")}}
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
