@@ -20,11 +20,11 @@
             <nav class="navbar navbar-light bg-light">
                 <a class="navbar-brand" href="{{url_for("route_index")}}">
                     {% if current_user.is_authenticated %}
-                        <img src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        <img src="{{ url_for('static', filename='stackunderflow.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
                         Stackunderflow_{{current_user.name}}
                     {% endif %}
                     {% if not current_user.is_authenticated %}
-                        <img src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        <img src="{{ url_for('static', filename='stackunderflow.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
                         Stackunderflow
                     {% endif %}
                 </a>
@@ -41,14 +41,15 @@
                 <!-- Navigation links start -->
                 <ul class="navbar-nav ml-auto">
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{url_for("auth.route_my_account")}}">My Account <span class="sr-only">(current)</span></a>
+
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-success text-white" href="{{url_for("questions.route_add_new_question")}}">Ask a question</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for("questions.route_all_questions")}}">All questions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url_for("questions.route_add_new_question")}}">Ask a question</a>
+                            <a class="nav-link" href="{{url_for("auth.route_my_account")}}">My Account <span class="sr-only">(current)</span></a>
                         </li>
                     {% endif %}
                     {% if not current_user.is_authenticated %}
