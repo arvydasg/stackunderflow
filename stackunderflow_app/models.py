@@ -42,17 +42,10 @@ class Answer(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey("question.id"))
     question = db.relationship("Question", backref=db.backref("answers", lazy=True))
     created_at = db.Column(db.DateTime, default=datetime.now(tz))
-    modified_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime, default=None)
 
     likes = db.Column(db.Integer, default=0)
     dislikes = db.Column(db.Integer, default=0)
-
-    # only update the "modified_at" field when content field is updated, not when liked/disliked
-    @validates("content")
-    def update_modified_at(self, key, content):
-        if self.content != content:
-            self.modified_at = datetime.now(tz)
-        return content
 
 
 class Action(db.Model):

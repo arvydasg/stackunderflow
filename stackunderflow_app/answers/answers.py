@@ -1,5 +1,6 @@
+from datetime import datetime
 from flask import render_template, request, redirect, url_for, flash
-from stackunderflow_app.models import db, Users, Question, Answer, Action
+from stackunderflow_app.models import db, Users, Question, Answer, Action, tz, now
 from stackunderflow_app.questions.question_form import AddAnswerForm
 from stackunderflow_app.app import login_manager
 from flask_login import current_user, login_required
@@ -44,6 +45,7 @@ def route_edit_answer(question_id, answer_id):  # fetching from the url
     form = AddAnswerForm(obj=answer)  # fill fields with data
     if form.validate_on_submit():
         answer.content = form.content.data
+        answer.modified_at = datetime.now(tz)
         db.session.commit()
         flash("You have successfully edited an answer!")
         return redirect(
