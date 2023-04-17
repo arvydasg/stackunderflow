@@ -5,9 +5,8 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
+            <div class="col-md-4 text-center">
                 <h2>Register</h2>
-
                 <form method="POST" action="{{ url_for('auth.route_register') }}" novalidate>
                     {{ form.csrf_token }}
                     <div class="form-group">
@@ -20,7 +19,6 @@
                 </form>
                 <br/>
                 <a href="{{url_for("auth.route_login")}}">Or perhaps just login?</a>
-
             </div>
         </div>
     </div>
