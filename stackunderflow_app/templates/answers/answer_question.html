@@ -2,14 +2,21 @@
 {% from "_render_field.html" import render_field %}
 
 {% block content %}
-    <h1>Answer Question</h1>
-    <h2>{{ question.title }}</h2>
-    <p>{{ question.content }}</p>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{render_field(form.content, class="form-control")}}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <h1>Answer Question</h1>
+                <p class="lead">{{ question.title }}</p>
+                <hr/>
+                <p>{{ question.content }}</p>
+                <form method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{render_field(form.content, rows=5, class="form-control")}}
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit answer</button>
+                </form>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit answer</button>
-    </form>
+    </div>
 {% endblock %}
