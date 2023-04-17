@@ -85,7 +85,9 @@ def route_edit_question(question_id):  # fetching from the url
         question.content = form.content.data
         db.session.commit()
         flash("You have successfully edited the question!")
-        return redirect(url_for("questions.route_all_questions"))
+        return redirect(
+            url_for("questions.route_question_detail", question_id=question_id)
+        )
     return render_template("questions/edit_question.html", form=form, question=question)
 
 
