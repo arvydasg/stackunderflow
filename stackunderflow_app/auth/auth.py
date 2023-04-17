@@ -49,11 +49,11 @@ def route_login():
         user = Users.query.filter_by(name=form.name.data).first()
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
+            login_user(user)
             flash("You have successfully logged in.")
             return redirect(url_for("route_index"))
         else:
-            flash("Prisijungti nepavyko. Patikrinkite el. paštą ir slaptažodį")
+            flash("Prisijungti nepavyko. Patikrinkite prisijungimo vardą ir slaptažodį")
     return render_template("auth/login.html", form=form)
 
 

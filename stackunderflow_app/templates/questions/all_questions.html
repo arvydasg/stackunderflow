@@ -2,20 +2,22 @@
 
 {% block content %}
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-success" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
     <div class="container">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <h1>All Questions</h1>
+
                 <form action="{{ url_for('questions.route_all_questions') }}" method="GET">
                     <label for="sort">Sort by:</label>
                     <select name="sort" id="sort">
