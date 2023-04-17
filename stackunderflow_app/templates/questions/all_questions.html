@@ -14,9 +14,8 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
+            <div class="col-md-6">
                 <h1>All Questions</h1>
-
                 <form action="{{ url_for('questions.route_all_questions') }}" method="GET">
                     <label for="sort">Sort by:</label>
                     <select name="sort" id="sort">
@@ -26,7 +25,6 @@
                         <option value="num_answers_asc">Fewest answers first</option>
                         <option value="num_answers_desc">Most answers first</option>
                     </select>
-                    <br/>
                     <label for="filter">Filter by:</label>
                     <select name="filter" id="filter">
                         <option value="">--</option>
@@ -41,29 +39,43 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">
+                                <div class="buttons text-right">
+                                    {% if current_user.is_authenticated and current_user.id == question.author_id %}
+                                        <div class="pb-2">
+                                            <a href="{{ url_for('questions.route_edit_question', question_id=question.id) }}" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></a>
+                                            <!-- preventing accidental deletion by visiting a URL in the browser. The route is accessible only through a POST request -->
+                                            <form action="{{ url_for('questions.route_delete_question', question_id=question.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this answer?')" style="display: inline;">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                </div>
                                 <a href="{{ url_for('questions.route_question_detail', question_id=question.id) }}">
                                     {{ question.title }}
                                 </a>
                             </h5>
-                            <p class="card-text">Question created: {{ question.created_at.strftime('%Y-%m-%d %H:%M') }}, by <b>{{ question.author.name }}</b></p>
-                            {% if question.modified_at is not none %}
-                                <p class="card-text">
-                                    <span class="badge badge-warning">Question modified at: {{question.modified_at.strftime('%Y-%m-%d %H:%M')}}</span>
-                                </p>
-                            {% endif %}
-                            <p class="card-text">{{ question.content[:50]}}...</p>
-                            {% if current_user.is_authenticated and current_user.id == question.author_id %}
-                                <a href="{{ url_for('questions.route_edit_question', question_id=question.id) }}" class="btn btn-primary">Edit</a>
-                                <!-- preventing accidental deletion by visiting a URL in the browser. The route is accessible only through a POST request -->
-                                <form action="{{ url_for('questions.route_delete_question', question_id=question.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this question?')">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            {% endif %}
+                            <p class="card-text">{{ question.content[:150]}}...</p>
+
                             {% if question.answers %}
-                                <p class="card-text">Answers: {{ question.answers|length }}</p>
+                                <div style="width: 120px;">
+                                    <p class="border border-success p-2 small text-center">Answers: {{ question.answers|length }}</p>
+                                </div>
                             {% else %}
-                                <p class="card-text">No answers yet</p>
+                                <div style="width: 120px;">
+                                    <p class="border border-danger p-2 small text-center">No answers yet</p>
+                                </div>
                             {% endif %}
+
+                        </div>
+                        <div class="card-footer text-muted small d-flex align-items-center justify-content-end">
+                            <img src="{{ url_for('static', filename='profile_images/' + question.author.profile_image) }}" alt="Profile Image" class="img-thumbnail align-self-center" style="width:50px; height:50px; object-fit:cover;">
+                            <div class="pl-2">
+                                <strong>{{ question.author.name|capitalize }}</strong> at {{ question.created_at.strftime('%Y-%m-%d %H:%M') }}
+                                <br/>
+                                {% if question.modified_at is not none %}
+                                    <span class="badge badge-warning">Modified at: {{question.modified_at.strftime('%Y-%m-%d %H:%M')}}</span>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 {% else %}
