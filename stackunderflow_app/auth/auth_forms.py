@@ -24,24 +24,24 @@ class RegisterForm(FlaskForm):
     """Register form."""
 
     name = StringField(
-        "Name",
+        "Name:",
         validators=[
             DataRequired(),
             Length(min=4, message="Username must contain at least 4 symbols."),
         ],
     )
     email = StringField(
-        "Email", validators=[DataRequired(), Email(message="Wrong email format.")]
+        "Email:", validators=[DataRequired(), Email(message="Wrong email format.")]
     )
     password = PasswordField(
-        "Password",
+        "Password:",
         validators=[
             DataRequired(),
             Length(min=4, message="Password must contain at least 4 symbols."),
         ],
     )
     confirm_password = PasswordField(
-        "Confirm Password",
+        "Confirm Password:",
         validators=[
             DataRequired(),
             EqualTo("password", message="Passwords must match."),
@@ -63,19 +63,18 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     """Login form."""
 
-    name = StringField("Name", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    remember = BooleanField("Remember me")
+    name = StringField("Name:", validators=[DataRequired()])
+    password = PasswordField("Password:", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
 class UpdateProfileInformation(FlaskForm):
     """Form used to update profile information."""
 
-    name = StringField("Name", [DataRequired()])
-    email = StringField("Email", [DataRequired()])
+    name = StringField("Name:", [DataRequired()])
+    email = StringField("Email:", [DataRequired()])
     profile_image = FileField(
-        "Update profile image", validators=[FileAllowed(["jpg", "png"])]
+        "Update profile image:", validators=[FileAllowed(["jpg", "png"])]
     )
     submit = SubmitField("Update")
 

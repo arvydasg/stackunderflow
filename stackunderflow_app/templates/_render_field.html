@@ -1,9 +1,9 @@
 {% macro render_field(field) %}
-    {{ field.label(style="color:red") }}
+    {{ field.label(style="color:black") }}
     {{ field(**kwargs)|safe }}
-    <ul>
+    <p>
         {% for error in field.errors %}
             <small><font color="red">{{ error }}</font></small>
         {% endfor %}
-    </ul>
+    </p>
 {% endmacro %}
