@@ -15,15 +15,31 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <h1>Add new question</h1>
+            <div class="col-md-6">
+                <h1>Add a new question</h1>
+                <div class="alert alert-info" role="alert">
+                    <div class="lead">Writing a good question</div>
+                    <br/>
+                    You’re ready to ask a programming-related question
+                    and this form will help guide you through the
+                    process.
+                    <br/>
+                    <br/>
+                    <strong>Steps</strong>
+                    <ul>
+                        <li>Summarize your problem in a one-line title.</li>
+                        <li>Describe your problem in more detail.</li>
+                        <li>Describe what you tried and what you expected to happen.</li>
+                        <li>Review your question and post it to the site.</li>
+                    </ul>
+                </div>
                 <form method="POST" action="{{ url_for('questions.route_add_new_question') }}" novalidate>
                     {{ form.csrf_token }}
                     <div class="form-group">
                         {{render_field(form.title, class="form-control")}}
                         {{render_field(form.content, class="form-control")}}
                     </div>
-                    <button type="submit" class="btn btn-primary">Ask question</button>
+                    <button type="submit" class="btn btn-primary">Ask Question</button>
                 </form>
             </div>
         </div>
