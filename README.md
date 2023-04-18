@@ -1,28 +1,28 @@
 # Table of Contents
 
--   [Stackunderflow](#org72df02f)
--   [The requirements](#org5e2219f)
-        -   [General requirements](#orgef0a474)
-        -   [Duomenų bazė](#org2e6c711)
-        -   [Frontend'as](#orgebdf2a6)
--   [Stuff I did not manage to implement](#org6221a80)
--   [Databases](#orgbfaf525)
+-   [Stackunderflow](#org0f987ee)
+    -   [The requirements](#org6c8b8f6)
+        -   [General requirements](#orgc6d3224)
+        -   [Duomenų bazė](#org5bf82ae)
+        -   [Frontend'as](#org292bd1e)
+    -   [Stuff I did not manage to implement](#orga64ab71)
+    -   [Databases](#org041fa16)
 
 
 
-<a id="org72df02f"></a>
+<a id="org0f987ee"></a>
 
 # Stackunderflow
 
 An app where users can ask questions and get the answers.
 
 
-<a id="org5e2219f"></a>
+<a id="org6c8b8f6"></a>
 
-# The requirements
+## The requirements
 
 
-<a id="orgef0a474"></a>
+<a id="orgc6d3224"></a>
 
 ### General requirements
 
@@ -59,7 +59,7 @@ Funkcionalumas:
 -   Peržiūrėti klausimų atsakymus
 
 
-<a id="org2e6c711"></a>
+<a id="org5bf82ae"></a>
 
 ### Duomenų bazė
 
@@ -67,7 +67,7 @@ Duomenų bazė turėtų saugoti visą informaciją - klausimus, atsakymai,
 vartotojus, ir bet kokią kitą informaciją kurios prireiktų.
 
 
-<a id="orgebdf2a6"></a>
+<a id="org292bd1e"></a>
 
 ### Frontend'as
 
@@ -77,9 +77,9 @@ sugalvoti ir sukurti puslapio dizainą. Svarbiausia išpildyti visus
 funkcinius reikalavimus ir validuoti vartotojo įvestį.
 
 
-<a id="org6221a80"></a>
+<a id="orga64ab71"></a>
 
-# Stuff I did not manage to implement
+## Stuff I did not manage to implement
 
 -   testing
 -   deleting related answers when a question is deleted(meh)
@@ -87,9 +87,9 @@ funkcinius reikalavimus ir validuoti vartotojo įvestį.
 -   pagination
 
 
-<a id="orgbfaf525"></a>
+<a id="org041fa16"></a>
 
-# Databases
+## Databases
 
 ![img](/db.jpeg)
 
