@@ -5,6 +5,8 @@ __pycache__/
 .db
 db.sqlite
 notes.md
+*.jpg
+*.png
 
 # C extensions
 *.so
