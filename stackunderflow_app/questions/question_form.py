@@ -1,18 +1,7 @@
 from flask_wtf import FlaskForm
 
-# from flask_wtf.file import FileField, FileAllowed
-from wtforms import (
-    SubmitField,
-    StringField,
-    PasswordField,
-    TextAreaField,
-    BooleanField,
-    validators,
-    DateField,
-    TimeField,
-)
-from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
-from stackunderflow_app.models import Users
+from wtforms import SubmitField, StringField, TextAreaField
+from wtforms.validators import DataRequired, Length
 from flask_ckeditor import CKEditorField
 
 

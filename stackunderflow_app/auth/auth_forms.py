@@ -3,16 +3,7 @@
 from flask_wtf import FlaskForm
 
 # from flask_wtf.file import FileField, FileAllowed
-from wtforms import (
-    SubmitField,
-    StringField,
-    PasswordField,
-    TextAreaField,
-    BooleanField,
-    validators,
-    DateField,
-    TimeField,
-)
+from wtforms import SubmitField, StringField, PasswordField
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 from stackunderflow_app.models import Users

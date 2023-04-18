@@ -1,8 +1,7 @@
 from datetime import datetime
-from flask import render_template, request, redirect, url_for, flash
-from stackunderflow_app.models import db, Users, Question, Answer, Action, tz, now
+from flask import render_template, redirect, url_for, flash
+from stackunderflow_app.models import db, Question, Answer, Action, tz
 from stackunderflow_app.questions.question_form import AddAnswerForm
-from stackunderflow_app.app import login_manager
 from flask_login import current_user, login_required
 from stackunderflow_app.questions.questions import bp
 
