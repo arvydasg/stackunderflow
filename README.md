@@ -1,22 +1,22 @@
 # Table of Contents
 
--   [Stackunderflow](#orgf7dcbc7)
-    -   [Task requirements](#orgeecc645)
-        -   [General requirements](#org5720438)
-        -   [DB](#org1f7cbcd)
-        -   [Frontend](#org33e1453)
-    -   [Stuff I did not manage to implement](#orgef59409)
-    -   [Databases](#orgfaeae44)
--   [Extra's](#org97fdc00)
-    -   [Blueprints](#orgdb41530)
-    -   [Rich text editor](#org7690dd3)
-    -   [My<sub>account</sub> page](#org206cf85)
-    -   [filtering/sorting](#org7391f1f)
-    -   [Hosing the app to Linode](#orgdf9e273)
+-   [Stackunderflow](#org7d5515f)
+    -   [Task requirements](#org2a12788)
+        -   [General requirements](#org95d59ce)
+        -   [DB](#orgbc61aef)
+        -   [Frontend](#org0e826f5)
+    -   [Stuff I did not manage to implement](#org3e7ad90)
+    -   [Databases](#org78a4867)
+-   [Extra's](#org2081df9)
+    -   [Blueprints](#orgb2199d9)
+    -   [Rich text editor](#org89e78af)
+    -   [My\_account page](#orgf220f6c)
+    -   [filtering/sorting](#orgaaf932c)
+    -   [Hosing the app to Linode](#org0e1f841)
 
 
 
-<a id="orgf7dcbc7"></a>
+<a id="org7d5515f"></a>
 
 # Stackunderflow
 
@@ -25,12 +25,12 @@ An app where users can ask questions and get the answers.
 Can be reached from here - <http://139.162.204.223:5000/>
 
 
-<a id="orgeecc645"></a>
+<a id="org2a12788"></a>
 
 ## Task requirements
 
 
-<a id="org5720438"></a>
+<a id="org95d59ce"></a>
 
 ### General requirements
 
@@ -67,7 +67,7 @@ Funkcionalumas:
 -   Peržiūrėti klausimų atsakymus
 
 
-<a id="org1f7cbcd"></a>
+<a id="orgbc61aef"></a>
 
 ### DB
 
@@ -75,7 +75,7 @@ Duomenų bazė turėtų saugoti visą informaciją - klausimus, atsakymai,
 vartotojus, ir bet kokią kitą informaciją kurios prireiktų.
 
 
-<a id="org33e1453"></a>
+<a id="org0e826f5"></a>
 
 ### Frontend
 
@@ -85,7 +85,7 @@ sugalvoti ir sukurti puslapio dizainą. Svarbiausia išpildyti visus
 funkcinius reikalavimus ir validuoti vartotojo įvestį.
 
 
-<a id="orgef59409"></a>
+<a id="org3e7ad90"></a>
 
 ## Stuff I did not manage to implement
 
@@ -95,7 +95,7 @@ funkcinius reikalavimus ir validuoti vartotojo įvestį.
 -   pagination
 
 
-<a id="orgfaeae44"></a>
+<a id="org78a4867"></a>
 
 ## Databases
 
@@ -121,12 +121,12 @@ Migrations really help. Got used to using them, no need to delete the
 db each and every time when making changes to the models.
 
 
-<a id="org97fdc00"></a>
+<a id="org2081df9"></a>
 
 # Extra's
 
 
-<a id="orgdb41530"></a>
+<a id="orgb2199d9"></a>
 
 ## Blueprints
 
@@ -142,7 +142,7 @@ Routes also separated and accessible as such:
 Much cleaner and intuitive.
 
 
-<a id="org7690dd3"></a>
+<a id="org89e78af"></a>
 
 ## Rich text editor
 
@@ -152,9 +152,9 @@ content. I have used `ckeditor` for this task. It was very quick and
 easy to implement.
 
 
-<a id="org206cf85"></a>
+<a id="orgf220f6c"></a>
 
-## My<sub>account</sub> page
+## My\_account page
 
 Added so the user can upload his/her profile image. Also could edit
 his/her username. And to see the questions that the user has asked.
@@ -166,7 +166,7 @@ Pre-populating the fields with the help of these lines in `auth.py`:
         form.email.data = current_user.email
 
 
-<a id="org7391f1f"></a>
+<a id="orgaaf932c"></a>
 
 ## filtering/sorting
 
@@ -177,7 +177,7 @@ string.
 
 When a user submits the form with either "Questions with answers" or
 "Questions without answers" selected, the corresponding value of
-filter (i.e. "with<sub>answers</sub>" or "without<sub>answers</sub>") is added to the URL
+filter (i.e. "with\_answers" or "without\_answers") is added to the URL
 query string as a parameter. The request.args.get() method retrieves
 this parameter value and assigns it to the filter variable, which is
 then used in the filter query to filter the list of questions.
@@ -185,12 +185,12 @@ then used in the filter query to filter the list of questions.
     sort = request.args.get("sort", "created_at_desc")
 
 In the code above, the default value of sort is set to
-"created<sub>at</sub><sub>desc</sub>" by providing it as the second argument to
+"created\_at\_desc" by providing it as the second argument to
 request.args.get(). This means that if the sort parameter is not
 provided in the request, the default sort order will be used.
 
 
-<a id="orgdf9e273"></a>
+<a id="org0e1f841"></a>
 
 ## Hosing the app to Linode
 
