@@ -4,14 +4,15 @@
 {% block content %}
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class="col-md-9 text-center">
+            <div class="col-md-9">
                 <h1>Edit a question</h1>
-                <form method="POST" action="{{ url_for('questions.route_edit_question', question_id=question.id) }}" novalidate>
+                <form method="POST" action="{{ url_for('questions.route_edit_question', question_id=question.id) }}" novalidate onsubmit="return confirm('Are you sure you want to modify your question?')">
                     {{ form.csrf_token }}
                     <div class="form-group">
                         {{render_field(form.title, class="form-control")}}
                         {{render_field(form.content, class="form-control")}}
                     </div>
+                    <p class="text-muted small">NOTE: It will be visible for others that your answer was modified.</p>
                     <button type="submit" class="btn btn-primary">Edit a question</button>
                 </form>
                 {{ ckeditor.load() }}
