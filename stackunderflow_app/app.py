@@ -4,6 +4,11 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_ckeditor import CKEditor
+import json
+import urllib3
+
+with open("./config.json") as config_file:
+    config = json.load(config_file)
 
 basedir = os.path.dirname(os.path.dirname(__file__))
 
@@ -17,15 +22,15 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+
     ckeditor = CKEditor(app)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-        basedir, "db.sqlite"
+        basedir, config.get("SQLALCHEMY_DATABASE_URI")
     )
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    flask_secret_key = os.urandom(32)
-    app.config["SECRET_KEY"] = flask_secret_key
+    app.config["SECRET_KEY"] = config.get("SECRET_KEY")
 
     from stackunderflow_app.models import db
 
@@ -57,7 +62,9 @@ def create_app():
 
     class MyModelView(ModelView):
         def is_accessible(self):
-            return current_user.is_authenticated and current_user.name == "root"
+            return current_user.is_authenticated and current_user.name == config.get(
+                "ADMIN_USER_NAME"
+            )
 
     admin = Admin(app)
     admin.add_view(MyModelView(Users, db.session))
