@@ -79,15 +79,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer text-muted text-right small">
-                                <strong>{{ answer.author.name|capitalize }}</strong> at {{ answer.created_at.strftime('%Y-%m-%d %H:%M') }}
-                                {% if answer.modified_at is not none %}
-                                    <p class="card-text">
-                                        <span class="badge badge-warning">Modified at {{answer.modified_at.strftime('%Y-%m-%d %H:%M')}}</span>
-                                    </p>
-                                {% endif %}
+                            <div class="card-footer text-muted small d-flex align-items-center justify-content-end">
+                                <img src="{{ url_for('static', filename='profile_images/' + question.author.profile_image) }}" alt="Profile Image" class="img-thumbnail align-self-center" style="width:50px; height:50px; object-fit:cover;">
+                                <div class="pl-2">
+                                    <strong>{{ answer.author.name|capitalize }}</strong> at {{ answer.created_at.strftime('%Y-%m-%d %H:%M') }}
+                                    {% if answer.modified_at is not none %}
+                                        <p class="card-text">
+                                            <span class="badge badge-warning">Modified at {{answer.modified_at.strftime('%Y-%m-%d %H:%M')}}</span>
+                                        </p>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
                     {% endfor %}
                 {% else %}
                     <p class="card-text">No answers yet</p>
@@ -95,7 +97,7 @@
                 {% if current_user.is_authenticated %}
                     <a href="{{ url_for('questions.route_answer_question', question_id=question.id) }}" class="btn btn-success mb-5">Answer the question</a>
                 {% endif %}
+                        </div>
             </div>
         </div>
-    </div>
 {% endblock %}
