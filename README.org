@@ -108,6 +108,20 @@ would be good to add syntax highlighting to the question/answer
 content. I have used ~ckeditor~ for this task. It was very quick and
 easy to implement.
 
+[[Implemented this ][How I implemented this]].
+
+** Macro for rendering form fields
+
+https://bootstrap-flask.readthedocs.io/en/stable/macros/
+
+Forms can get large, especially with flask_wtf.
+
+Macros help with that enormously. Instead of having 20 lines of code
+for a form, you can have 2-5 lines.
+
+Describe the template for the form, use this template in teach of
+your forms.
+
 ** My_account page
 
 Added so the user can upload his/her profile image. Also could edit
