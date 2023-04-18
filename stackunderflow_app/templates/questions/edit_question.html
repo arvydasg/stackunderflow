@@ -10,10 +10,12 @@
                     {{ form.csrf_token }}
                     <div class="form-group">
                         {{render_field(form.title, class="form-control")}}
-                        {{render_field(form.content, rows=10, class="form-control")}}
+                        {{render_field(form.content, class="form-control")}}
                     </div>
                     <button type="submit" class="btn btn-primary">Edit a question</button>
                 </form>
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='content') }}
             </div>
         </div>
     </div>

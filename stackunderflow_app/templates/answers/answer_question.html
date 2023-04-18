@@ -8,7 +8,7 @@
                 <h1>Answer Question</h1>
                 <p class="lead">{{ question.title }}</p>
                 <hr/>
-                <p>{{ question.content }}</p>
+                <p>{{ question.content|safe }}</p>
                 <form method="post">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
@@ -16,6 +16,8 @@
                     </div>
                     <button type="submit" class="btn btn-success">Submit answer</button>
                 </form>
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='content') }}
             </div>
         </div>
     </div>

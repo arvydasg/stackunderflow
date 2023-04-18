@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_ckeditor import CKEditor
 
 basedir = os.path.dirname(os.path.dirname(__file__))
 
@@ -16,6 +17,7 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+    ckeditor = CKEditor(app)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
         basedir, "db.sqlite"

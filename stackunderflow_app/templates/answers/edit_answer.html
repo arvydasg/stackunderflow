@@ -10,16 +10,18 @@
                 <div class="question bg-light p-3 mb-3">
                     <p class="lead">{{ question.title }}</p>
                     <hr/>
-                    <p>{{ question.content }}</p>
+                    <p>{{ question.content|safe }}</p>
                 </div>
                 <form method="POST" action="{{ url_for('questions.route_edit_answer', question_id=question_id, answer_id=answer.id) }}" novalidate onsubmit="return confirm('Are you sure you want to modify your answer?')">
                     {{ form.csrf_token }}
                     <div class="form-group">
-                        {{render_field(form.content, rows=5, class="form-control")}}
+                        {{render_field(form.content, class="form-control")}}
                     </div>
                     <p class="text-muted small">NOTE: It will be visible for others that your answer was modified.</p>
                     <button type="submit" class="btn btn-primary">Edit your answer</button>
                 </form>
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='content') }}
             </div>
         </div>
     </div>

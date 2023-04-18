@@ -56,7 +56,8 @@
                                     {{ question.title }}
                                 </a>
                             </h5>
-                            <p class="card-text">{{ question.content[:150]}}...</p>
+                            <p class="card-text">{{ question.content[:150]|striptags }}...</p>
+
 
                             {% if question.answers %}
                                 <div style="width: 120px;">

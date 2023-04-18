@@ -13,6 +13,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 from stackunderflow_app.models import Users
+from flask_ckeditor import CKEditorField
 
 
 class AddQuestionForm(FlaskForm):
@@ -23,7 +24,7 @@ class AddQuestionForm(FlaskForm):
 
 
 class AddAnswerForm(FlaskForm):
-    content = TextAreaField(
+    content = CKEditorField(
         "Your answer:", validators=[DataRequired(), Length(max=5000)]
     )
     submit = SubmitField("Submit")
