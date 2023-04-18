@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-muted small d-flex align-items-center justify-content-end">
-                                <img src="{{ url_for('static', filename='profile_images/' + question.author.profile_image) }}" alt="Profile Image" class="img-thumbnail align-self-center" style="width:50px; height:50px; object-fit:cover;">
+                                <img src="{{ url_for('static', filename='profile_images/' + answer.author.profile_image) }}" alt="Profile Image" class="img-thumbnail align-self-center" style="width:50px; height:50px; object-fit:cover;">
                                 <div class="pl-2">
                                     <strong>{{ answer.author.name|capitalize }}</strong> at {{ answer.created_at.strftime('%Y-%m-%d %H:%M') }}
                                     {% if answer.modified_at is not none %}
