@@ -1,28 +1,36 @@
 # Table of Contents
 
--   [Stackunderflow](#org0f987ee)
-    -   [The requirements](#org6c8b8f6)
-        -   [General requirements](#orgc6d3224)
-        -   [Duomenų bazė](#org5bf82ae)
-        -   [Frontend'as](#org292bd1e)
-    -   [Stuff I did not manage to implement](#orga64ab71)
-    -   [Databases](#org041fa16)
+-   [Stackunderflow](#orgf7dcbc7)
+    -   [Task requirements](#orgeecc645)
+        -   [General requirements](#org5720438)
+        -   [DB](#org1f7cbcd)
+        -   [Frontend](#org33e1453)
+    -   [Stuff I did not manage to implement](#orgef59409)
+    -   [Databases](#orgfaeae44)
+-   [Extra's](#org97fdc00)
+    -   [Blueprints](#orgdb41530)
+    -   [Rich text editor](#org7690dd3)
+    -   [My<sub>account</sub> page](#org206cf85)
+    -   [filtering/sorting](#org7391f1f)
+    -   [Hosing the app to Linode](#orgdf9e273)
 
 
 
-<a id="org0f987ee"></a>
+<a id="orgf7dcbc7"></a>
 
 # Stackunderflow
 
 An app where users can ask questions and get the answers.
 
-
-<a id="org6c8b8f6"></a>
-
-## The requirements
+Can be reached from here - <http://139.162.204.223:5000/>
 
 
-<a id="orgc6d3224"></a>
+<a id="orgeecc645"></a>
+
+## Task requirements
+
+
+<a id="org5720438"></a>
 
 ### General requirements
 
@@ -59,17 +67,17 @@ Funkcionalumas:
 -   Peržiūrėti klausimų atsakymus
 
 
-<a id="org5bf82ae"></a>
+<a id="org1f7cbcd"></a>
 
-### Duomenų bazė
+### DB
 
 Duomenų bazė turėtų saugoti visą informaciją - klausimus, atsakymai,
 vartotojus, ir bet kokią kitą informaciją kurios prireiktų.
 
 
-<a id="org292bd1e"></a>
+<a id="org33e1453"></a>
 
-### Frontend'as
+### Frontend
 
 Frontend'as neturi nustatyto dizaino vaizdo (angl. wireframes), kurį
 reikia atkartoti. Tačiau jum tenka sunkesnė užduotis - patiems
@@ -77,7 +85,7 @@ sugalvoti ir sukurti puslapio dizainą. Svarbiausia išpildyti visus
 funkcinius reikalavimus ir validuoti vartotojo įvestį.
 
 
-<a id="orga64ab71"></a>
+<a id="orgef59409"></a>
 
 ## Stuff I did not manage to implement
 
@@ -87,7 +95,7 @@ funkcinius reikalavimus ir validuoti vartotojo įvestį.
 -   pagination
 
 
-<a id="org041fa16"></a>
+<a id="orgfaeae44"></a>
 
 ## Databases
 
@@ -108,3 +116,86 @@ question to which it is a response.
 `Action` table: many-to-many relationship between the Users and Answer
 tables. This means that each user can perform multiple actions on
 multiple answers, such as liking or disliking them.
+
+Migrations really help. Got used to using them, no need to delete the
+db each and every time when making changes to the models.
+
+
+<a id="org97fdc00"></a>
+
+# Extra's
+
+
+<a id="orgdb41530"></a>
+
+## Blueprints
+
+Using blueprints helped me to separate the app even more. Questions,
+Answers, Auth stuff - everything separated in separate files.
+
+Routes also separated and accessible as such:
+
+/auth
+
+/questions
+
+Much cleaner and intuitive.
+
+
+<a id="org7690dd3"></a>
+
+## Rich text editor
+
+Since this is a programmer's place to ask questions, I decided it
+would be good to add syntax highlighting to the question/answer
+content. I have used `ckeditor` for this task. It was very quick and
+easy to implement.
+
+
+<a id="org206cf85"></a>
+
+## My<sub>account</sub> page
+
+Added so the user can upload his/her profile image. Also could edit
+his/her username. And to see the questions that the user has asked.
+
+Pre-populating the fields with the help of these lines in `auth.py`:
+
+    elif request.method == "GET":
+        form.name.data = current_user.name
+        form.email.data = current_user.email
+
+
+<a id="org7391f1f"></a>
+
+## filtering/sorting
+
+request.args.get() is a method in Flask that allows you to retrieve
+the value of a query parameter from a request. In this case, it is
+used to retrieve the value of the filter parameter from the URL query
+string.
+
+When a user submits the form with either "Questions with answers" or
+"Questions without answers" selected, the corresponding value of
+filter (i.e. "with<sub>answers</sub>" or "without<sub>answers</sub>") is added to the URL
+query string as a parameter. The request.args.get() method retrieves
+this parameter value and assigns it to the filter variable, which is
+then used in the filter query to filter the list of questions.
+
+    sort = request.args.get("sort", "created_at_desc")
+
+In the code above, the default value of sort is set to
+"created<sub>at</sub><sub>desc</sub>" by providing it as the second argument to
+request.args.get(). This means that if the sort parameter is not
+provided in the request, the default sort order will be used.
+
+
+<a id="orgdf9e273"></a>
+
+## Hosing the app to Linode
+
+Hiding the secrets first - [This commit](https://github.com/arvydasg/stackunderflow/commit/69cd7e6c3fca1dbb4b3d6a8fe049e7730b37a6a8).
+
+Followed [this](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-22-04) tutorial. Quite basic, simply connected with ssh and
+launched the app. Did not have time to make it as a service, add
+domain name and such.
