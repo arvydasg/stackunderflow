@@ -69,8 +69,8 @@
                                                     <button type="submit" class="btn btn-outline-danger btn-block"><i class="fa fa-thumbs-down"></i> {{ answer.dislikes }}</button>
                                                 </form>
                                             {% else %}
-                                                <a href="{{ url_for('auth.route_login') }}" class="btn btn-outline-success btn-block disabled"><i class="fa fa-thumbs-up"></i> {{ answer.likes }}</a>
-                                                <a href="{{ url_for('auth.route_login') }}" class="btn btn-outline-danger btn-block disabled"><i class="fa fa-thumbs-down"></i> {{ answer.dislikes }}</a>
+                                                <a href="{{ url_for('auth.route_login') }}" class="btn btn-outline-success btn-block" title="Login to like this answer"><i class="fa fa-thumbs-up"></i> {{ answer.likes }}</a>
+                                                <a href="{{ url_for('auth.route_login') }}" class="btn btn-outline-danger btn-block" title="Login to dislike this answer"><i class="fa fa-thumbs-down"></i> {{ answer.dislikes }}</a>
                                             {% endif %}
                                         </div>
                                     </div>
