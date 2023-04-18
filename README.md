@@ -1,22 +1,23 @@
 # Table of Contents
 
--   [Stackunderflow](#org7d5515f)
-    -   [Task requirements](#org2a12788)
-        -   [General requirements](#org95d59ce)
-        -   [DB](#orgbc61aef)
-        -   [Frontend](#org0e826f5)
-    -   [Stuff I did not manage to implement](#org3e7ad90)
-    -   [Databases](#org78a4867)
--   [Extra's](#org2081df9)
-    -   [Blueprints](#orgb2199d9)
-    -   [Rich text editor](#org89e78af)
-    -   [My\_account page](#orgf220f6c)
-    -   [filtering/sorting](#orgaaf932c)
-    -   [Hosing the app to Linode](#org0e1f841)
+-   [Stackunderflow](#orgb04beb2)
+    -   [Task requirements](#orgda0334b)
+        -   [General requirements](#orgb021765)
+        -   [DB](#org737c602)
+        -   [Frontend](#org33a34e3)
+    -   [Stuff I did not manage to implement](#org38b5ac6)
+    -   [Databases](#orgb684737)
+-   [Extra's](#org96edc5a)
+    -   [Blueprints](#org86599c1)
+    -   [Rich text editor](#orgf328911)
+    -   [Macro for rendering form fields](#org90b477c)
+    -   [My\_account page](#orgf8283a1)
+    -   [filtering/sorting](#org51eb88e)
+    -   [Hosing the app to Linode](#org6779dca)
 
 
 
-<a id="org7d5515f"></a>
+<a id="orgb04beb2"></a>
 
 # Stackunderflow
 
@@ -25,12 +26,12 @@ An app where users can ask questions and get the answers.
 Can be reached from here - <http://139.162.204.223:5000/>
 
 
-<a id="org2a12788"></a>
+<a id="orgda0334b"></a>
 
 ## Task requirements
 
 
-<a id="org95d59ce"></a>
+<a id="orgb021765"></a>
 
 ### General requirements
 
@@ -67,7 +68,7 @@ Funkcionalumas:
 -   Peržiūrėti klausimų atsakymus
 
 
-<a id="orgbc61aef"></a>
+<a id="org737c602"></a>
 
 ### DB
 
@@ -75,7 +76,7 @@ Duomenų bazė turėtų saugoti visą informaciją - klausimus, atsakymai,
 vartotojus, ir bet kokią kitą informaciją kurios prireiktų.
 
 
-<a id="org0e826f5"></a>
+<a id="org33a34e3"></a>
 
 ### Frontend
 
@@ -85,7 +86,7 @@ sugalvoti ir sukurti puslapio dizainą. Svarbiausia išpildyti visus
 funkcinius reikalavimus ir validuoti vartotojo įvestį.
 
 
-<a id="org3e7ad90"></a>
+<a id="org38b5ac6"></a>
 
 ## Stuff I did not manage to implement
 
@@ -95,7 +96,7 @@ funkcinius reikalavimus ir validuoti vartotojo įvestį.
 -   pagination
 
 
-<a id="org78a4867"></a>
+<a id="orgb684737"></a>
 
 ## Databases
 
@@ -121,12 +122,12 @@ Migrations really help. Got used to using them, no need to delete the
 db each and every time when making changes to the models.
 
 
-<a id="org2081df9"></a>
+<a id="org96edc5a"></a>
 
 # Extra's
 
 
-<a id="orgb2199d9"></a>
+<a id="org86599c1"></a>
 
 ## Blueprints
 
@@ -142,7 +143,7 @@ Routes also separated and accessible as such:
 Much cleaner and intuitive.
 
 
-<a id="org89e78af"></a>
+<a id="orgf328911"></a>
 
 ## Rich text editor
 
@@ -151,8 +152,25 @@ would be good to add syntax highlighting to the question/answer
 content. I have used `ckeditor` for this task. It was very quick and
 easy to implement.
 
+[How I implemented CKEditor](https://github.com/arvydasg/stackunderflow/commit/8278895e899d644b685f89c7286e2348211caa3a).
 
-<a id="orgf220f6c"></a>
+
+<a id="org90b477c"></a>
+
+## Macro for rendering form fields
+
+<https://bootstrap-flask.readthedocs.io/en/stable/macros/>
+
+Forms can get large, especially with flask\_wtf.
+
+Macros help with that enormously. Instead of having 20 lines of code
+for a form, you can have 2-5 lines.
+
+Describe the template for the form, use this template in teach of
+your forms.
+
+
+<a id="orgf8283a1"></a>
 
 ## My\_account page
 
@@ -166,7 +184,7 @@ Pre-populating the fields with the help of these lines in `auth.py`:
         form.email.data = current_user.email
 
 
-<a id="orgaaf932c"></a>
+<a id="org51eb88e"></a>
 
 ## filtering/sorting
 
@@ -190,7 +208,7 @@ request.args.get(). This means that if the sort parameter is not
 provided in the request, the default sort order will be used.
 
 
-<a id="org0e1f841"></a>
+<a id="org6779dca"></a>
 
 ## Hosing the app to Linode
 

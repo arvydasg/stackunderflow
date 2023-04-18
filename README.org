@@ -108,7 +108,7 @@ would be good to add syntax highlighting to the question/answer
 content. I have used ~ckeditor~ for this task. It was very quick and
 easy to implement.
 
-[[Implemented this ][How I implemented this]].
+[[https://github.com/arvydasg/stackunderflow/commit/8278895e899d644b685f89c7286e2348211caa3a][How I implemented CKEditor]].
 
 ** Macro for rendering form fields
 
