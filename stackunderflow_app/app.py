@@ -50,6 +50,21 @@ def create_app():
     from stackunderflow_app.questions import questions
     from stackunderflow_app.answers import answers
 
+    from flask_admin import Admin
+    from flask_admin.contrib.sqla import ModelView
+    from flask_login import current_user
+    from stackunderflow_app.models import Users, Question, Answer, Action
+
+    class MyModelView(ModelView):
+        def is_accessible(self):
+            return current_user.is_authenticated and current_user.name == "root"
+
+    admin = Admin(app)
+    admin.add_view(MyModelView(Users, db.session))
+    admin.add_view(MyModelView(Question, db.session))
+    admin.add_view(MyModelView(Answer, db.session))
+    admin.add_view(MyModelView(Action, db.session))
+
     app.register_blueprint(questions.bp)
 
     @app.route("/")
