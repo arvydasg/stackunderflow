@@ -58,10 +58,14 @@ funkcinius reikalavimus ir validuoti vartotojo įvestį.
 
 ** Stuff I did not manage to implement
 
-- testing
+- unit/integration testing
 - deleting related answers when a question is deleted(meh)
 - duckdns domain
 - pagination
+- breadcrums
+- search function
+- preloading(client side vs serve side)
+- dark/light theme with js
 
 ** Databases
 
