@@ -1,0 +1,5 @@
+{
+    "SECRET_KEY": "111111111111119",
+    "SQLALCHEMY_DATABASE_URI": "db.sqlite",
+    "ADMIN_USER_NAME": "root"
+}
